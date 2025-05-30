@@ -109,7 +109,7 @@ export default function About() {
                 I have expertise in SQL and NoSQL databases, backed by practical experience in project implementation. Additionally, I have hands-on experience working with the MERN stack (MongoDB, Express.js, React.js, Node.js), enabling me to build full-stack web applications.
               </p>
               <p>
-                I am passionate about solving real-world problems using code. I actively solve problems on LeetCode and <a href="https://www.hackerrank.com/profile/ajithajay1029" target="_blank" className="underline text-primary">HackerRank</a>, having solved over 50+ problems.
+                I am passionate about solving real-world problems using code. I actively solve problems on <a href="https://leetcode.com/u/Ajith_ajay/" target="_blank" className="text-primary underline">Leetcode</a> and <a href="https://www.hackerrank.com/profile/ajithajay1029" target="_blank" className="underline text-primary">HackerRank</a>, having solved over 50+ problems.
               </p>
               <p>
                 I also like sharing content related to the stuff that I have learned over the years so it can help other people of the Dev Community. Feel free to connect or follow me on my LinkedIn where I post useful content related to Programming.

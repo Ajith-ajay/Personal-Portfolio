@@ -133,7 +133,7 @@ export default function Skills() {
           <h3 className="text-2xl font-bold text-center mb-6">Competitive Programming</h3>
           <div className="flex justify-center gap-6 flex-wrap">
             <SkillLink src="/hackerrank.svg" label="HackerRank" href="https://www.hackerrank.com/profile/ajithajay1029" />
-            <SkillLink src="/leetcode.svg" label="LeetCode" href="#" />
+            <SkillLink src="/leetcode.svg" label="LeetCode" href="https://leetcode.com/u/Ajith_ajay/" />
           </div>
         </div>
 

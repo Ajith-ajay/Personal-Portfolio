@@ -24,7 +24,7 @@ export default function Footer() {
               </a>
             </p>
             <p className="text-muted-foreground mb-4 text-justify">
-              <a href="#" target="_blank" rel="noopener noreferrer" className="flex gap-2">
+              <a href="https://leetcode.com/u/Ajith_ajay/" target="_blank" rel="noopener noreferrer" className="flex gap-2">
                 <img src="/leetcode.svg" className="w-6 h-6" alt="LeetCode Icon" />
                 <span>LeetCode</span>
               </a>
