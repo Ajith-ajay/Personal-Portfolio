@@ -66,7 +66,7 @@ export default function Hero() {
                 </Button>
               </a>
 
-              <a href="mailto:ajithajay1029@gmail.com" aria-label="Email">
+              <a href="mailto:ajithajay1029@gmail.com" target="_blank" aria-label="Email">
                 <Button variant="ghost" size="icon">
                   <Mail className="h-5 w-5" />
                 </Button>

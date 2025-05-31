@@ -289,11 +289,13 @@ useEffect(() => {
                         </a>
                         <a
                           href="#"
+                          target="_blank"
                         >
                           <Facebook className="h-5 w-5 text-primary mr-3 mt-0.5" />
                         </a>
                         <a
                           href="https://x.com/ajithajay1029"
+                          target="_blank"
                         >
                           <Twitter className="h-5 w-5 text-primary mr-3 mt-0.5" />
                         </a>
