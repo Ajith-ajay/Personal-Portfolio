@@ -87,7 +87,7 @@ export default function Footer() {
               <Link href="https://www.linkedin.com/in/ajith-g-923b25274/" target="_blank" aria-label="LinkedIn">
                 <Linkedin className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
               </Link>
-              <Link href="https://twitter.com" target="_blank" aria-label="Twitter">
+              <Link href="https://x.com/ajithajay1029" target="_blank" aria-label="Twitter">
                 <Twitter className="h-5 w-5 text-muted-foreground hover:text-foreground transition-colors" />
               </Link>
               <Link href="https://www.instagram.com/_callme._.peace__fighter.____/" target="_blank" aria-label="Instagram">
