@@ -59,7 +59,7 @@ const LoginPage: React.FC = () => {
           </button>
         </form>
         <p className="mt-6 text-center text-sm text-gray-500">
-          © 2025 Your Company. All rights reserved.
+          © 2025 Ajay Company. All rights reserved.
         </p>
       </div>
     </div>
