@@ -11,14 +11,14 @@ import { Briefcase, Calendar, GraduationCap, MapPin } from "lucide-react"
 export default function Experience() {
 
   interface ExperienceItem {
-  id: string;
-  role: string;
-  company: string;
-  location: string;
-  period: string;
-  description: string;
-  skills: string[];
-}
+    id: string;
+    role: string;
+    company: string;
+    location: string;
+    period: string;
+    description: string;
+    skills: string[];
+  }
 
 interface EducationItem {
   id: string;

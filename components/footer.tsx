@@ -103,7 +103,7 @@ export default function Footer() {
         <div className="border-t border-border mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
           <p>&copy; {currentYear} Ajith. All rights reserved/Privacy.</p>
           <p className="text-center">"Strive not to be a success, but rather to be of value." - Albert Einstein</p>
-          <p className="mt-2 md:mt-0">Designed and Developed with ❤️</p>
+          <p className="mt-2 md:mt-0">Designed and Developed with <a href="/login">❤️</a></p>
         </div>
       </div>
     </footer>
