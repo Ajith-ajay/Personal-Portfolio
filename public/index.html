@@ -94,11 +94,20 @@
         }
       });
     </script>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const analytics = firebase.analytics();
-        analytics.logEvent('page_view_test');
-        console.log("✅ Logged test event: page_view_test");
+   <script>
+      window.addEventListener('load', function () {
+        try {
+          // Wait until firebase is defined
+          if (typeof firebase === 'undefined' || !firebase.analytics) {
+            console.error("❌ Firebase not ready yet");
+            return;
+          }
+          const analytics = firebase.analytics();
+          analytics.logEvent('page_view_test');
+          console.log("✅ Logged test event: page_view_test");
+        } catch (err) {
+          console.error("🔥 Error logging event:", err);
+        }
       });
     </script>
   </body>
