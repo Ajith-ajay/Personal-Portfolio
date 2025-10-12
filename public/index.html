@@ -94,5 +94,12 @@
         }
       });
     </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const analytics = firebase.analytics();
+        analytics.logEvent('page_view_test');
+        console.log("✅ Logged test event: page_view_test");
+      });
+    </script>
   </body>
 </html>
