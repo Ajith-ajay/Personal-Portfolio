@@ -37,15 +37,6 @@
         body { border-top: 16px solid #ffa100; }
       }
     </style>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FNK4KSF42P"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-FNK4KSF42P');
-    </script>
   </head>
   <body>
     <div id="message">
@@ -91,22 +82,6 @@
         } catch (e) {
           console.error(e);
           loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-   <script>
-      window.addEventListener('load', function () {
-        try {
-          // Wait until firebase is defined
-          if (typeof firebase === 'undefined' || !firebase.analytics) {
-            console.error("❌ Firebase not ready yet");
-            return;
-          }
-          const analytics = firebase.analytics();
-          analytics.logEvent('page_view_test');
-          console.log("✅ Logged test event: page_view_test");
-        } catch (err) {
-          console.error("🔥 Error logging event:", err);
         }
       });
     </script>

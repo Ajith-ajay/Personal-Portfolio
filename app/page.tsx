@@ -1,38 +1,43 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Navbar from "@/components/navbar"
-import Hero from "@/components/hero"
-import About from "@/components/about"
-import Projects from "@/components/projects"
-import Skills from "@/components/skills"
-import Experience from "@/components/experience"
-import Contact from "@/components/contact"
-import Footer from "@/components/footer"
-import { ThemeProvider } from "@/components/theme-provider"
+import { useState, useEffect } from "react";
+import Navbar from "@/components/navbar";
+import Hero from "@/components/hero";
+import About from "@/components/about";
+import Projects from "@/components/projects";
+import Skills from "@/components/skills";
+import Experience from "@/components/experience";
+import Contact from "@/components/contact";
+import Footer from "@/components/footer";
+import { ThemeProvider } from "@/components/theme-provider";
+import "@/lib/firebase";
 
 export default function Portfolio() {
-  const [activeSection, setActiveSection] = useState("home")
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = document.querySelectorAll("section")
-      const scrollPosition = window.scrollY + 100
+      const sections = document.querySelectorAll("section");
+      const scrollPosition = window.scrollY + 100;
 
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop
-        const sectionHeight = section.offsetHeight
-        const sectionId = section.getAttribute("id")
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute("id");
 
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight && sectionId) {
-          setActiveSection(sectionId)
+        if (
+          scrollPosition >= sectionTop &&
+          scrollPosition < sectionTop + sectionHeight &&
+          sectionId
+        ) {
+          setActiveSection(sectionId);
         }
-      })
-    }
+      });
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -49,5 +54,5 @@ export default function Portfolio() {
         <Footer />
       </div>
     </ThemeProvider>
-  )
+  );
 }
