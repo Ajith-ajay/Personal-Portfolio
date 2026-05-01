@@ -61,12 +61,12 @@ export default function About() {
                 <p className="text-muted-foreground">Freelance/Intern</p>
               </div>
             </div>
-            <a href="/Resume.pdf" download>
+            <a href="/Resume1.pdf" download>
               <Button className="mt-6" size="lg">
                 <FileText className="mr-2 h-4 w-4" /> Download CV
               </Button>
             </a>
-            <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/Resume1.pdf" target="_blank" rel="noopener noreferrer">
               <Button className="mt-6 ml-[5px] md:ml-10" size="lg">
                 <FileText className="mr-2 h-4 w-4" /> Open CV
               </Button>
