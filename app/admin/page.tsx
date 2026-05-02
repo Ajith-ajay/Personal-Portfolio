@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRequireAuth } from "../../hooks/use-auth";
 
 export default function AdminPage() {
-  useRequireAuth();
+  const { authReady } = useRequireAuth();
 
   const sections = [
     { name: "Active Status", path: "/admin/activestatus" },
@@ -12,11 +12,17 @@ export default function AdminPage() {
     { name: "Education", path: "/admin/education" },
     { name: "Experience", path: "/admin/experiences" },
     { name: "Projects", path: "/admin/projects" },
+    { name: "Resume", path: "/admin/resume" },
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6 md:p-10">
       <div className="max-w-6xl mx-auto">
+        {!authReady && (
+          <div className="mb-8 rounded-2xl border border-gray-200 bg-white p-6 text-gray-600 shadow-sm">
+            Loading admin dashboard...
+          </div>
+        )}
         {/* Title */}
         <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-10 text-gray-800">
           Admin Dashboard
