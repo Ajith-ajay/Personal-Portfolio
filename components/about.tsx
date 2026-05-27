@@ -88,12 +88,14 @@ export default function About() {
                 <p className="text-muted-foreground">Freelance/Intern</p>
               </div>
             </div>
-            <a href={resumeUrl} download>
+            {/* <a href={resumeUrl} download> */}
+            <a href={'/Ajith_G_Resume.pdf'} download>
               <Button className="mt-6" size="lg">
                 <FileText className="mr-2 h-4 w-4" /> Download CV
               </Button>
             </a>
-            <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
+            <a href={'/Ajith_G_Resume.pdf'} target="_blank" rel="noopener noreferrer">
+            {/* <a href={resumeUrl} target="_blank" rel="noopener noreferrer"> */}
               <Button className="mt-6 ml-[5px] md:ml-10" size="lg">
                 <FileText className="mr-2 h-4 w-4" /> Open CV
               </Button>
