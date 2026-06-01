@@ -1,41 +1,67 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState, useEffect } from "react"
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/app/db";
 import { Dialog } from "@headlessui/react"
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { doc, getDoc } from "firebase/firestore"
 import { Button } from "@/components/ui/button"
 import { FileText } from "lucide-react"
-import { db } from "@/app/db"
 
-const RESUME_COLLECTION = "resume_settings"
-const RESUME_DOC_ID = "current"
-const FALLBACK_RESUME_URL = "/Resume1.pdf"
+const RESUME_COLLECTION = "resume_settings";
+const RESUME_DOC_ID = "current";
+const FALLBACK_RESUME_URL = "/Resume.pdf";
+const STATIC_RESUME_URL = "/resume";
 
 export default function About() {
   const [isOpen, setIsOpen] = useState(false)
-  const [resumeUrl, setResumeUrl] = useState(FALLBACK_RESUME_URL)
+  const [resumeUrl, setResumeUrl] = useState(FALLBACK_RESUME_URL);
+  const [resumeName, setResumeName] = useState("Resume1.pdf");
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const loadResume = async () => {
-      try {
-        const snapshot = await getDoc(doc(db, RESUME_COLLECTION, RESUME_DOC_ID))
+		let isMounted = true;
 
-        if (snapshot.exists()) {
-          const data = snapshot.data() as { url?: string }
+		const loadResume = async () => {
+			try {
+				const snapshot = await getDoc(doc(db, RESUME_COLLECTION, RESUME_DOC_ID));
 
-          if (data.url) {
-            setResumeUrl(data.url)
-          }
-        }
-      } catch {
-        setResumeUrl(FALLBACK_RESUME_URL)
-      }
-    }
+				if (!isMounted) return;
 
-    loadResume()
-  }, [])
+				if (snapshot.exists()) {
+					const data = snapshot.data() as { url?: string; fileName?: string };
+
+					if (data.url) {
+            const downloadUrl = data.url.replace(
+                "/upload/",
+                "/upload/fl_attachment/"
+              );
+						setResumeUrl(downloadUrl);
+					}
+
+					if (data.fileName) {
+						setResumeName(data.fileName);
+					}
+				}
+			} catch {
+				if (isMounted) {
+					setErrorMessage("Unable to load the latest resume. Showing the fallback copy.");
+				}
+			} finally {
+				if (isMounted) {
+					setLoading(false);
+				}
+			}
+		};
+
+		loadResume();
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
 
   return (
     <section id="about" className="py-20 bg-muted/50">
@@ -88,14 +114,12 @@ export default function About() {
                 <p className="text-muted-foreground">Freelance/Intern</p>
               </div>
             </div>
-            {/* <a href={resumeUrl} download> */}
-            <a href={'/Ajith_G_Resume.pdf'} download>
+            <a href={resumeUrl} download>
               <Button className="mt-6" size="lg">
                 <FileText className="mr-2 h-4 w-4" /> Download CV
               </Button>
             </a>
-            <a href={'/Ajith_G_Resume.pdf'} target="_blank" rel="noopener noreferrer">
-            {/* <a href={resumeUrl} target="_blank" rel="noopener noreferrer"> */}
+            <a href={STATIC_RESUME_URL} target="_blank" rel="noopener noreferrer">
               <Button className="mt-6 ml-[5px] md:ml-10" size="lg">
                 <FileText className="mr-2 h-4 w-4" /> Open CV
               </Button>

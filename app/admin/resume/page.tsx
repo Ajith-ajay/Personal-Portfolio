@@ -7,11 +7,9 @@ import { db } from "@/app/db";
 
 const RESUME_COLLECTION = "resume_settings";
 const RESUME_DOC_ID = "current";
-const RESUME_STORAGE_PATH = "resume/current-resume.pdf";
-const FALLBACK_RESUME_URL = "/Resume1.pdf";
+const STATIC_RESUME_URL = "/resume";
 
 export default function ResumePage() {
-	const [currentResumeUrl, setCurrentResumeUrl] = useState(FALLBACK_RESUME_URL);
 	const [currentResumeName, setCurrentResumeName] = useState("Resume1.pdf");
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [selectedPreviewUrl, setSelectedPreviewUrl] = useState("");
@@ -30,11 +28,7 @@ export default function ResumePage() {
 				const snapshot = await getDoc(doc(db, RESUME_COLLECTION, RESUME_DOC_ID));
 
 				if (snapshot.exists()) {
-					const data = snapshot.data() as { url?: string; fileName?: string };
-
-					if (data.url) {
-						setCurrentResumeUrl(data.url);
-					}
+					const data = snapshot.data() as { fileName?: string };
 
 					if (data.fileName) {
 						setCurrentResumeName(data.fileName);
@@ -83,79 +77,76 @@ export default function ResumePage() {
 	};
 
 	const handleUpload = async (event: React.FormEvent<HTMLFormElement>) => {
-	event.preventDefault();
+		event.preventDefault();
 
-	if (!user) {
-		setStatusMessage("Please wait for authentication to finish loading.");
-		return;
-	}
-
-	if (!selectedFile) {
-		setSelectedFileError("Choose a PDF before uploading.");
-		return;
-	}
-
-	// ✅ Validate PDF (important)
-	if (selectedFile.type !== "application/pdf") {
-		setSelectedFileError("Only PDF files are allowed.");
-		return;
-	}
-
-	try {
-		setUploading(true);
-		setStatusMessage("");
-		setErrorMessage("");
-
-		const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-		const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
-
-		if (!cloudName || !uploadPreset) {
-			throw new Error("Cloudinary not configured.");
+		if (!user) {
+			setStatusMessage("Please wait for authentication to finish loading.");
+			return;
 		}
 
-		const formData = new FormData();
-		formData.append("file", selectedFile);
-		formData.append("upload_preset", uploadPreset);
-
-		// ✅ Use AUTO (better than raw)
-		const endpoint = `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
-
-		const res = await fetch(endpoint, {
-			method: "POST",
-			body: formData,
-		});
-
-		const data = await res.json();
-
-		if (!res.ok) {
-			console.error(data);
-			throw new Error(data.error?.message || "Upload failed");
+		if (!selectedFile) {
+			setSelectedFileError("Choose a PDF before uploading.");
+			return;
 		}
 
-		const url = data.secure_url;
-		const storagePath = `cloudinary:${data.public_id}`;
+		if (selectedFile.type !== "application/pdf") {
+			setSelectedFileError("Only PDF files are allowed.");
+			return;
+		}
 
-		if (!url) throw new Error("Upload did not return a URL.");
+		try {
+			setUploading(true);
+			setStatusMessage("");
+			setErrorMessage("");
 
-		await setDoc(doc(db, RESUME_COLLECTION, RESUME_DOC_ID), {
-			url,
-			fileName: selectedFile.name,
-			storagePath,
-			updatedAt: serverTimestamp(),
-		});
+			const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+			const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
-		setCurrentResumeUrl(url);
-		setCurrentResumeName(selectedFile.name);
-		setSelectedFile(null);
-		setSelectedPreviewUrl("");
-		setStatusMessage("Resume updated successfully.");
-	} catch (err: any) {
-		console.error(err);
-		setErrorMessage(err?.message || "Upload failed.");
-	} finally {
-		setUploading(false);
-	}
-};
+			if (!cloudName || !uploadPreset) {
+				throw new Error("Cloudinary not configured.");
+			}
+
+			const formData = new FormData();
+			formData.append("file", selectedFile);
+			formData.append("upload_preset", uploadPreset);
+
+			const endpoint = `https://api.cloudinary.com/v1_1/${cloudName}/raw/upload`;
+
+			const res = await fetch(endpoint, {
+				method: "POST",
+				body: formData,
+			});
+
+			const data = await res.json();
+
+			if (!res.ok) {
+				console.error(data);
+				throw new Error(data.error?.message || "Upload failed");
+			}
+
+			const url = data.secure_url;
+			const storagePath = `cloudinary:${data.public_id}`;
+
+			if (!url) throw new Error("Upload did not return a URL.");
+
+			await setDoc(doc(db, RESUME_COLLECTION, RESUME_DOC_ID), {
+				url,
+				fileName: selectedFile.name,
+				storagePath,
+				updatedAt: serverTimestamp(),
+			});
+
+			setCurrentResumeName(selectedFile.name);
+			setSelectedFile(null);
+			setSelectedPreviewUrl("");
+			setStatusMessage(`Resume updated successfully. Public link stays the same: ${STATIC_RESUME_URL}`);
+		} catch (err: any) {
+			console.error(err);
+			setErrorMessage(err?.message || "Upload failed.");
+		} finally {
+			setUploading(false);
+		}
+	};
 
 	if (!authReady) {
 		return (
@@ -187,13 +178,16 @@ export default function ResumePage() {
 								<p className="text-sm text-gray-500">{currentResumeName}</p>
 							</div>
 							<a
-								href={currentResumeUrl}
+								href={STATIC_RESUME_URL}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
 							>
 								Open Resume
 							</a>
+						</div>
+						<div className="mb-4 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900">
+							Public resume link: <span className="font-semibold">{STATIC_RESUME_URL}</span>
 						</div>
 
 						{errorMessage && (
@@ -204,7 +198,7 @@ export default function ResumePage() {
 
 						<div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
 							<iframe
-								src={currentResumeUrl}
+								src={STATIC_RESUME_URL}
 								title="Current resume preview"
 								className="h-[72vh] w-full"
 							/>
