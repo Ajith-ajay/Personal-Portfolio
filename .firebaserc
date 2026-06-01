@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "myprotfoliostu"
-  }
+  },
+  "targets": {
+    "myprotfoliostu": {
+      "hosting": {
+        "portfolio": [
+          "ajithcoder-portfolio"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

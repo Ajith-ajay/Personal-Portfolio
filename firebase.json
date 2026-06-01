@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "portfolio",
     "public": "out",
     "ignore": [
       "firebase.json",
