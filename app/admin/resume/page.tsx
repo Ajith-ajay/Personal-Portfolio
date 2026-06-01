@@ -7,7 +7,7 @@ import { db } from "@/app/db";
 
 const RESUME_COLLECTION = "resume_settings";
 const RESUME_DOC_ID = "current";
-const STATIC_RESUME_URL = "/resume";
+const STATIC_RESUME_URL = "/Ajith_Resume.pdf";
 
 export default function ResumePage() {
 	const [currentResumeName, setCurrentResumeName] = useState("Resume1.pdf");

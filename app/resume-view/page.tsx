@@ -7,9 +7,9 @@ import { db } from "@/app/db";
 const RESUME_COLLECTION = "resume_settings";
 const RESUME_DOC_ID = "current";
 const FALLBACK_RESUME_URL = "/Resume1.pdf";
-const STATIC_RESUME_URL = "/resume";
+const STATIC_RESUME_URL = "/resume-view";
 
-export default function ResumeRoutePage() {
+export default function ResumeViewPage() {
 	const [resumeUrl, setResumeUrl] = useState(FALLBACK_RESUME_URL);
 	const [resumeName, setResumeName] = useState("Resume1.pdf");
 	const [loading, setLoading] = useState(true);
@@ -54,26 +54,26 @@ export default function ResumeRoutePage() {
 	}, []);
 
 	return (
-		<div className="min-h-screen bg-neutral-950 text-white">
-			<div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
-				<div className="mb-4 flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur">
+		<div className="min-h-screen bg-gradient-to-b from-neutral-100 via-white to-neutral-200 text-neutral-900">
+			<div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 py-4 sm:px-6 lg:px-8">
+				<div className="mb-4 flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 bg-white px-4 py-3 shadow-sm">
 					<div>
-						<p className="text-xs uppercase tracking-[0.24em] text-white/60">Resume</p>
-						<h1 className="text-lg font-semibold">Ajith G</h1>
+						<p className="text-xs uppercase tracking-[0.24em] text-neutral-500">Resume Preview</p>
+						<h1 className="text-lg font-semibold text-neutral-900">Ajith G</h1>
 					</div>
 					<div className="flex flex-wrap gap-2 text-sm">
 						<a
 							href={resumeUrl}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="rounded-full border border-white/15 bg-white/10 px-4 py-2 font-medium text-white transition-colors hover:bg-white/15"
+							className="rounded-full border border-neutral-300 bg-white px-4 py-2 font-medium text-neutral-800 transition-colors hover:bg-neutral-50"
 						>
 							Open PDF
 						</a>
 						<a
 							href={resumeUrl}
 							download
-							className="rounded-full bg-white px-4 py-2 font-medium text-neutral-950 transition-colors hover:bg-neutral-200"
+							className="rounded-full bg-neutral-900 px-4 py-2 font-medium text-white transition-colors hover:bg-neutral-700"
 						>
 							Download
 						</a>
@@ -81,14 +81,14 @@ export default function ResumeRoutePage() {
 				</div>
 
 				{errorMessage && (
-					<div className="mb-4 rounded-2xl border border-amber-400/20 bg-amber-400/10 px-4 py-3 text-sm text-amber-100">
+					<div className="mb-4 rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900 shadow-sm">
 						{errorMessage}
 					</div>
 				)}
 
-				<div className="relative flex-1 overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#111827] shadow-2xl">
+				<div className="relative flex-1 overflow-hidden rounded-[1.75rem] border border-neutral-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
 					{loading ? (
-						<div className="flex h-full min-h-[80vh] items-center justify-center text-sm text-white/60">
+						<div className="flex h-full min-h-[80vh] items-center justify-center text-sm text-neutral-500">
 							Loading resume...
 						</div>
 					) : (
@@ -103,7 +103,7 @@ export default function ResumeRoutePage() {
 
 				<div className="flex items-center justify-center pt-2 text-xs text-neutral-500">
 					<span className="rounded-full border border-neutral-200 bg-white px-3 py-1 shadow-sm">
-						Public link: {STATIC_RESUME_URL}
+						Backup viewer: {STATIC_RESUME_URL}
 					</span>
 				</div>
 			</div>
