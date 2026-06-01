@@ -12,7 +12,8 @@ import { FileText } from "lucide-react"
 const RESUME_COLLECTION = "resume_settings";
 const RESUME_DOC_ID = "current";
 const FALLBACK_RESUME_URL = "/Resume.pdf";
-const STATIC_RESUME_URL = "/Ajith_Resume.pdf";
+const STATIC_RESUME_URL = "/resume";
+// const STATIC_RESUME_URL = "/Ajith_Resume.pdf";
 
 export default function About() {
   const [isOpen, setIsOpen] = useState(false)
