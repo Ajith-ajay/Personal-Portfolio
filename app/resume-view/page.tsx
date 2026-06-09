@@ -7,7 +7,7 @@ import { db } from "@/app/db";
 const RESUME_COLLECTION = "resume_settings";
 const RESUME_DOC_ID = "current";
 const FALLBACK_RESUME_URL = "/Resume1.pdf";
-const STATIC_RESUME_URL = "/resume-view";
+const STATIC_RESUME_URL = "/Ajith_Resume.pdf-view";
 
 export default function ResumeViewPage() {
 	const [resumeUrl, setResumeUrl] = useState(FALLBACK_RESUME_URL);
