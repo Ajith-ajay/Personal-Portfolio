@@ -38,6 +38,10 @@ jobs:
 
       - name: Build project
         run: npm run build
+      
+      - name: Debug exported files
+        run: |
+          find out -type f | sort
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
